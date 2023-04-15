@@ -1,0 +1,28 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript eval</title>
+</head>
+<body>
+
+<textarea id="eval_code" cols="100" rows="30" placeholder="粘贴eval代码"></textarea>
+<button onclick="executeEval()">EVAL</button>
+
+<script type="text/javascript">
+
+    // Hook覆盖
+
+    function executeEval(){
+        let evalCodeElt = document.getElementById("eval_code");
+        let evalCode = evalCodeElt.value;
+        // 如果不把开头的eval去掉的话直接执行会被执行两遍
+        evalCode = evalCode.replace(/^eval/, "");
+        try{
+            evalCodeElt.value = eval(evalCode);
+        }catch (e) {
+            alert("执行报错了:" + e);
+        }
+    }
+</script>
+</body>
+</html>
