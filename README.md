@@ -1,12 +1,12 @@
 # Eval加密解压缩 
 
-# 在线解密
+# 一、在线解密
 
 [https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html)
 
-# 原理探究：jspacker压缩及解压缩研究(js eval)
+# 二、原理探究：jspacker压缩及解压缩研究(js eval)
 
-起因：
+## 2.1 起因
 
 在研究爬虫的时候发现很多网站都出现了同一种方式的js混淆，并且名字都是pde.js，怀疑是使用了同一款混淆工具，所以研究一下。
 
@@ -14,7 +14,7 @@
 
 支持两种压缩方式，一种是Shrink variables比较常规的压缩方式，就是去掉一些空白符注释之类的，另一种是Base62 encode，是一种比较适合用来压缩内容单词重复率高的压缩方式。
 
-## 压缩示例
+## 2.2 压缩示例
 
 所有讨论基于Base62 encode压缩方式，输入：
 
@@ -51,7 +51,7 @@ eval(function (p, a, c, k, e, r) {
 
 面的代码看着很唬人，其实原理很简单，我们耐心分析下。
 
-## 压缩原理：
+## 2.3 压缩原理：
 
 简单来说就是将相同的单词进行压缩，具体为将所有单词抽取出来作为一个词典，然后将源代码中表示单词的地方改为引用词典的下标，这样的话当重复的单词很多的时候压缩效果就比较好，但是当重复的单词比较少的时候这种方法有点得不偿失。
 
@@ -127,7 +127,7 @@ eval(function(p, a, c, k, e, r) {
 } ('0.1("2");0.1("2");0.1("3");', 4, 4, 'console|log|aaaaa|bbbb'.split('|'), 0, {}))
 ```
 
-## 解压缩小工具
+## 2.4 解压缩小工具
 
 我把这种 eval(blablabla…) 形式的统称为eval压缩，并针对此写了个一个简单的解压小工具。
 
@@ -140,26 +140,41 @@ eval(function(p, a, c, k, e, r) {
 html代码如下：
 
 ```html
-<html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>JavaScript eval</title>
+    <title>JavaScript Eval解密</title>
 </head>
 <body>
- 
-<textarea id="eval_code" cols="100" rows="30" placeholder="粘贴eval代码"></textarea>
-<button onclick="executeEval()">EVAL</button>
- 
+
+<label for="eval_code">Eval加密的代码：</label><textarea id="eval_code" cols="100" rows="30"
+                                                        placeholder="粘贴eval代码"></textarea>
+<button onclick="executeEval()">EVAL解密</button>
+
 <script type="text/javascript">
-    function executeEval(){
+
+    // Hook覆盖
+
+    // 这个placeholder比较大，通过JS来设置
+    (function () {
+        const placeholder = `粘贴eval代码，比如：
+eval(function(p,a,c,k,e,r){e=String;if(!''.replace(/^/,String)){while(c--)r[c]=k[c]||c;k=[function(e){return r[e]}];e=function(){return'\\\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\\\b'+e(c)+'\\\\b','g'),k[c]);return p}('0.1("2");',3,3,'console|log|CC11001100'.split('|'),0,{}))`;
+        document.getElementById("eval_code").setAttribute("placeholder", placeholder);
+    })();
+
+    function executeEval() {
         let evalCodeElt = document.getElementById("eval_code");
         let evalCode = evalCodeElt.value;
         // 如果不把开头的eval去掉的话直接执行会被执行两遍
-         evalCode = evalCode.replace(/^eval/, "");
-        try{
+        evalCode = evalCode.replace(/^eval/, "");
+        if (!evalCode) {
+            alert("请在文本框内粘贴被Eval加密的JavaScript代码！");
+            return;
+        }
+        try {
             evalCodeElt.value = eval(evalCode);
-        }catch (e) {
-            alert("执行报错了:" + e);
+        } catch (e) {
+            alert("执行报错了：" + e);
         }
     }
 </script>
@@ -171,7 +186,7 @@ html代码如下：
 
 ![1](README.assets/784924-20180225023303642-218023791.gif)
 
-## 参考资料
+## 三、参考资料
 
 - [https://www.cnblogs.com/cc11001100/p/8468508.html](https://www.cnblogs.com/cc11001100/p/8468508.html)
 
