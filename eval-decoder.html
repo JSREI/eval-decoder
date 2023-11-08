@@ -1,26 +1,38 @@
-<html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>JavaScript eval</title>
+    <title>JavaScript Eval解密</title>
 </head>
 <body>
 
-<textarea id="eval_code" cols="100" rows="30" placeholder="粘贴eval代码"></textarea>
-<button onclick="executeEval()">EVAL</button>
+<label for="eval_code">Eval加密的代码：</label><textarea id="eval_code" cols="100" rows="30"
+                                                        placeholder="粘贴eval代码"></textarea>
+<button onclick="executeEval()">EVAL解密</button>
 
 <script type="text/javascript">
 
     // Hook覆盖
 
-    function executeEval(){
+    // 这个placeholder比较大，通过JS来设置
+    (function () {
+        const placeholder = `粘贴eval代码，比如：
+eval(function(p,a,c,k,e,r){e=String;if(!''.replace(/^/,String)){while(c--)r[c]=k[c]||c;k=[function(e){return r[e]}];e=function(){return'\\\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\\\b'+e(c)+'\\\\b','g'),k[c]);return p}('0.1("2");',3,3,'console|log|CC11001100'.split('|'),0,{}))`;
+        document.getElementById("eval_code").setAttribute("placeholder", placeholder);
+    })();
+
+    function executeEval() {
         let evalCodeElt = document.getElementById("eval_code");
         let evalCode = evalCodeElt.value;
         // 如果不把开头的eval去掉的话直接执行会被执行两遍
         evalCode = evalCode.replace(/^eval/, "");
-        try{
+        if (!evalCode) {
+            alert("请在文本框内粘贴被Eval加密的JavaScript代码！");
+            return;
+        }
+        try {
             evalCodeElt.value = eval(evalCode);
-        }catch (e) {
-            alert("执行报错了:" + e);
+        } catch (e) {
+            alert("执行报错了：" + e);
         }
     }
 </script>
