@@ -2,6 +2,8 @@
 
 GitHub Repository：https://github.com/JSREI/eval-decoder
 
+简体中文| [English](README_en.md)
+
 # 一、在线解密
 
 点击链接进入在线解密页面：
