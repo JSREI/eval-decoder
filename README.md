@@ -1,8 +1,12 @@
-# Eval加密解压缩 
+# Eval加密解密原理与工具
 
 # 一、在线解密
 
+点击链接进入在线解密页面：
+
 [https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html)
+
+![image-20241017220641930](./README.assets/image-20241017220641930.png)
 
 # 二、原理探究：jspacker压缩及解压缩研究(js eval)
 
