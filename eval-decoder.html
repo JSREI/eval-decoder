@@ -1,27 +1,178 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript Eval解密</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+    <style>
+        /* 整个页面使用Flexbox布局 */
+        body {
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            min-height: 100vh; /* 最小高度为视口高度 */
+            margin: 0;
+            background-color: #f0f0f0; /* 背景颜色 */
+            font-family: Arial, sans-serif; /* 字体 */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column; /* 垂直排列子元素 */
+            align-items: center; /* 子元素水平居中 */
+        }
+
+        .cool-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #fff;
+            background: linear-gradient(45deg, #4b6cb7, #182848);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px; /* 添加底部间距 */
+        }
+
+        .cool-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: skewX(-20deg);
+            transition: all 0.3s ease;
+        }
+
+        .cool-button:hover::before {
+            transform: skewX(20deg) translateX(150%);
+        }
+
+        .cool-button:hover {
+            background: linear-gradient(45deg, #182848, #4b6cb7);
+        }
+
+        .cool-textarea {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            font-size: 16px;
+            color: #333;
+            background: #f7f7f7;
+            border: 2px solid #4b6cb7;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            resize: none; /* 防止调整大小 */
+        }
+
+        .cool-textarea:focus {
+            border-color: #182848;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 5px rgba(25, 25, 25, 0.4);
+            outline: none;
+        }
+
+        .cool-textarea::placeholder {
+            color: #a9a9a9;
+        }
+
+        h1 {
+            font-size: 2.5em; /* 字体大小 */
+            color: #4b6cb7; /* 字体颜色，与按钮颜色相匹配 */
+            text-align: center; /* 文本居中 */
+            margin: 0; /* 移除默认的外边距 */
+            padding: 20px 0; /* 上下内边距 */
+            font-weight: normal; /* 字体权重 */
+            text-transform: uppercase; /* 大小写转换为大写 */
+            background: linear-gradient(to right, #4b6cb7, #182848); /* 背景渐变 */
+            -webkit-background-clip: text; /* 背景剪切，文本颜色变为透明 */
+            background-clip: text;
+            color: transparent; /* 文本颜色变为透明 */
+            transition: all 0.3s ease; /* 平滑过渡效果 */
+        }
+
+        h1:hover {
+            transform: scale(1.05); /* 鼠标悬停时放大 */
+        }
+    </style>
 </head>
 <body>
 
-<label for="eval_code">Eval加密的代码：</label><textarea id="eval_code" cols="100" rows="30"
-                                                        placeholder="粘贴eval代码"></textarea>
-<button onclick="executeEval()">EVAL解密</button>
+<div class="container">
+    <h1 for="eval_code">解密Eval加密的代码</h1>
 
+    <textarea id="eval_code" cols="100" rows="30" placeholder="粘贴eval代码" class="cool-textarea"></textarea>
+
+    <br>
+    <br>
+
+    <div>
+        <button class="cool-button" onclick="executeEval()">EVAL解密</button>
+        &nbsp;&nbsp;
+        <button class="cool-button" onclick="clearEvalCode()">清空</button>
+        &nbsp;&nbsp;
+        <button class="cool-button" onclick="loadExampleEvalCode()">加载示例加密代码</button>
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+        <p>
+        <p>参考链接:</p>
+        <ul>
+            <li><a href="https://github.com/JSREI/eval-decoder" target="_blank">https://github.com/JSREI/eval-decoder</a></li>
+            <li><a href="https://www.cnblogs.com/cc11001100/p/8468508.html" target="_blank">https://www.cnblogs.com/cc11001100/p/8468508.html</a></li>
+        </ul>
+        </p>
+    </div>
+
+    <a class="github-fork-ribbon" href="https://github.com/JSREI/eval-decoder" target="_blank"
+       data-ribbon="Fork me on GitHub" title="Fork me on GitHub">
+        Fork me on GitHub
+    </a>
+</div>
 <script type="text/javascript">
 
-    // Hook覆盖
+    /**
+     * 示例eval加密的代码
+     *
+     * @type {string}
+     */
+    const EXAMPLE_EVAL_CODE = `eval(function(p,a,c,k,e,r){e=String;if(!''.replace(/^/,String)){while(c--)r[c]=k[c]||c;k=[function(e){return r[e]}];e=function(){return'\\\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\\\b'+e(c)+'\\\\b','g'),k[c]);return p}('0.1("2");',3,3,'console|log|CC11001100'.split('|'),0,{}))`;
 
-    // 这个placeholder比较大，通过JS来设置
-    (function () {
-        const placeholder = `粘贴eval代码，比如：
-eval(function(p,a,c,k,e,r){e=String;if(!''.replace(/^/,String)){while(c--)r[c]=k[c]||c;k=[function(e){return r[e]}];e=function(){return'\\\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\\\b'+e(c)+'\\\\b','g'),k[c]);return p}('0.1("2");',3,3,'console|log|CC11001100'.split('|'),0,{}))`;
-        document.getElementById("eval_code").setAttribute("placeholder", placeholder);
-    })();
+    /**
+     * 加载默认的eval加密示例代码
+     */
+    function loadExampleEvalCode() {
+        document.getElementById('eval_code').value = EXAMPLE_EVAL_CODE;
+        saveEvalCode();
+    }
+
+    /**
+     * 清空输入框
+     */
+    function clearEvalCode() {
+        document.getElementById('eval_code').value = '';
+        saveEvalCode();
+    }
+
+    /**
+     * 为文本输入框设置默认的示例代码，这个placeholder比较大，通过JS来设置
+     */
+    function setPlaceholder() {
+        const placeholder = `粘贴eval代码，比如：\n${EXAMPLE_EVAL_CODE}`;
+        document.getElementById('eval_code').setAttribute("placeholder", placeholder);
+    }
 
     function executeEval() {
-        let evalCodeElt = document.getElementById("eval_code");
+        let evalCodeElt = document.getElementById('eval_code');
         let evalCode = evalCodeElt.value;
         // 如果不把开头的eval去掉的话直接执行会被执行两遍
         evalCode = evalCode.replace(/^eval/, "");
@@ -31,10 +182,44 @@ eval(function(p,a,c,k,e,r){e=String;if(!''.replace(/^/,String)){while(c--)r[c]=k
         }
         try {
             evalCodeElt.value = eval(evalCode);
+            saveEvalCode();
         } catch (e) {
             alert("执行报错了：" + e);
         }
     }
+
+    /**
+     * eval code本地存储使用的key
+     * @type {string}
+     */
+    const EVAL_CODE_LOCAL_STORAGE_KEY = 'JSREI-eval-decoder-eval_code-local-storage-key';
+
+    /**
+     * 保存eval code到本地
+     */
+    function saveEvalCode() {
+        const evalCode = document.getElementById('eval_code').value || '';
+        localStorage.setItem(EVAL_CODE_LOCAL_STORAGE_KEY, evalCode);
+    }
+
+    /**
+     * 从本地存储中恢复出来上次的输入
+     */
+    function recoveryEvalCode() {
+        const evalContent = localStorage.getItem(EVAL_CODE_LOCAL_STORAGE_KEY);
+        if (!evalContent) {
+            return;
+        }
+        document.getElementById('eval_code').value = evalContent;
+    }
+
+    // 页面初始化
+    (function () {
+        setPlaceholder();
+        recoveryEvalCode();
+    })();
+
+
 </script>
 </body>
 </html>
