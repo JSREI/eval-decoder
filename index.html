@@ -15,11 +15,6 @@
     <div class="language-switch">
         <a href="#" onclick="switchLanguage('zh')">中文</a> | 
         <a href="#" onclick="switchLanguage('en')">English</a>
-        <span class="separator">|</span>
-        <a href="#" onclick="addToFavorites()" id="add-favorite-btn" title="收藏本页">
-            <span class="lang-zh">⭐ 收藏本页</span>
-            <span class="lang-en" style="display: none;">⭐ Bookmark</span>
-        </a>
     </div>
 
     <textarea id="eval_code" cols="100" rows="30" placeholder="粘贴eval代码" class="cool-textarea"></textarea>
@@ -72,6 +67,11 @@
             </div>
         </div>
     </div>
+
+    <!-- 页脚 -->
+    <footer class="site-footer">
+        <p id="footer-text"></p>
+    </footer>
 
     <!-- GitHub Ribbon -->
     <a class="github-fork-ribbon" href="https://github.com/JSREI/eval-decoder" target="_blank"

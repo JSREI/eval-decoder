@@ -243,4 +243,32 @@ h1:hover {
     .language-switch {
         margin-bottom: 10px;
     }
+    
+    .site-footer {
+        margin-top: 30px;
+        padding-top: 15px;
+        font-size: 0.8em;
+    }
+}
+
+/* 页脚样式 */
+.site-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.site-footer a {
+    color: #4b6cb7;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+    color: #182848;
+    text-decoration: underline;
 } 
