@@ -38,8 +38,7 @@ const LANG = {
         alertEmpty: "请在文本框内粘贴被Eval加密的JavaScript代码！",
         alertError: "执行报错了：",
         forkMe: "Star me on GitHub",
-        bookmarkTitle: "收藏本页",
-        bookmarkMessage: "请使用键盘快捷键 Ctrl+D (Windows/Linux) 或 Cmd+D (Mac) 将本页添加到收藏夹！"
+        footer: "© 2025 <a href=\"https://github.com/JSREI/eval-decoder?tab=readme-ov-file\" target=\"_blank\">Eval Decoder</a> - 由 <a href=\"https://github.com/JSREI\" target=\"_blank\">JSREI</a> 提供"
     },
     en: {
         title: "Decrypt Eval Encoded JavaScript",
@@ -61,8 +60,7 @@ const LANG = {
         alertEmpty: "Please paste the Eval encrypted JavaScript code in the text box!",
         alertError: "An error occurred: ",
         forkMe: "Star me on GitHub",
-        bookmarkTitle: "Bookmark This Page",
-        bookmarkMessage: "Please use keyboard shortcut Ctrl+D (Windows/Linux) or Cmd+D (Mac) to bookmark this page!"
+        footer: "© 2025 <a href=\"https://github.com/JSREI/eval-decoder?tab=readme-ov-file\" target=\"_blank\">Eval Decoder</a> - Provided by <a href=\"https://github.com/JSREI\" target=\"_blank\">JSREI</a>"
     }
 };
 
@@ -155,18 +153,17 @@ function updatePageTexts(lang) {
     document.getElementById('clear-btn').innerText = LANG[lang].clear;
     document.getElementById('example-btn').innerText = LANG[lang].loadExample;
     
-    // 更新收藏按钮title
-    const bookmarkBtn = document.getElementById('add-favorite-btn');
-    if (bookmarkBtn) {
-        bookmarkBtn.title = LANG[lang].bookmarkTitle;
-    }
-    
     // 切换所有带语言标记的元素
     document.querySelectorAll('.lang-zh, .lang-en').forEach(el => {
         el.style.display = 'none';
     });
     document.querySelectorAll(`.lang-${lang}`).forEach(el => {
-        el.style.display = 'block';
+        // 如果是列表项元素，使用list-item而不是block，以确保显示列表符号
+        if (el.tagName === 'LI') {
+            el.style.display = 'list-item';
+        } else {
+            el.style.display = 'block';
+        }
     });
     
     // 设置图片的alt文本
@@ -187,6 +184,12 @@ function updatePageTexts(lang) {
         ribbon.setAttribute('data-ribbon', LANG[lang].forkMe);
         ribbon.setAttribute('title', LANG[lang].forkMe);
         ribbon.innerText = LANG[lang].forkMe;
+    }
+    
+    // 更新页脚文本
+    const footerTextElement = document.getElementById('footer-text');
+    if (footerTextElement) {
+        footerTextElement.innerHTML = LANG[lang].footer;
     }
     
     // 更新文本框placeholder
@@ -313,22 +316,6 @@ function showNotification(message, duration = 3000) {
             }
         }, 300);
     }, duration);
-}
-
-/**
- * 添加到收藏夹
- */
-function addToFavorites() {
-    const message = LANG[currentLang].bookmarkMessage;
-    
-    // 更新收藏按钮的title属性
-    const bookmarkBtn = document.getElementById('add-favorite-btn');
-    if (bookmarkBtn) {
-        bookmarkBtn.title = LANG[currentLang].bookmarkTitle;
-    }
-    
-    // 显示收藏提示
-    showNotification(message, 5000);
 }
 
 // 页面初始化
