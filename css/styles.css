@@ -271,4 +271,19 @@ h1:hover {
 .site-footer a:hover {
     color: #182848;
     text-decoration: underline;
+}
+
+/* 确保列表项符号始终显示 */
+.reference-section ul li {
+    display: list-item !important;
+}
+
+.reference-section ul li.lang-zh,
+.reference-section ul li.lang-en {
+    display: none;
+}
+
+.reference-section ul li.lang-zh[style*="display: block"],
+.reference-section ul li.lang-en[style*="display: block"] {
+    display: list-item !important;
 } 
