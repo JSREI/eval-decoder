@@ -8,13 +8,33 @@ GitHub Repository: [https://github.com/JSREI/eval-decoder](https://github.com/JS
 
 Click the link to enter the online decryption page:
 
-[https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html)
+[https://jsrei.github.io/eval-decoder/](https://jsrei.github.io/eval-decoder/)
+
+or use GitHub Pages preview:
+
+[https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html)
 
 ![image-20241017220641930](./README.assets/image-20241017220641930.png)
 
-## 2. Principle Exploration: JSPacker Compression and Decompression Study (js eval)
+## 2. Deployment Instructions
 
-### 2.1 Cause
+### 2.1 Local Deployment
+
+After cloning the repository, simply open the `index.html` file in your browser to use the tool.
+
+### 2.2 GitHub Pages Deployment
+
+1. Fork this repository to your GitHub account
+2. Enable GitHub Pages:
+   - Go to repository settings (Settings)
+   - Find the "Pages" option
+   - Choose "main" branch in the "Source" section
+   - Save the settings
+3. After a few minutes, your tool will be accessible via `https://<your-username>.github.io/eval-decoder/`
+
+## 3. Principle Exploration: JSPacker Compression and Decompression Study (js eval)
+
+### 3.1 Cause
 
 While studying web crawlers, I found that many websites had the same type of JS obfuscation, and the names were all pde.js. I suspected that the same obfuscation tool was used, so I decided to research it.
 
@@ -22,7 +42,7 @@ This tool is called JS Packer, which is not a dedicated obfuscation tool but a J
 
 It supports two compression methods. One is the conventional Shrinking variables, which removes whitespace and comments, etc. The other is Base62 encoding, which is suitable for compressing content with a high repetition rate of words.
 
-### 2.2 Compression Example
+### 3.2 Compression Example
 
 All discussions are based on the Base62 encode compression method. Input:
 
@@ -59,7 +79,7 @@ eval(function (p, a, c, k, e, r) {
 
 The code above may look intimidating, but the principle is quite simple. Let's analyze it patiently.
 
-### 2.3 Compression Principle:
+### 3.3 Compression Principle:
 
 In simple terms, it compresses the same words by extracting all words as a dictionary and then changing the places in the source code that represent words to reference the index of the dictionary. This method works well when there are many repeated words, but it may not be worth it when there are few repeated words.
 
@@ -135,7 +155,7 @@ eval(function(p, a, c, k, e, r) {
 } ('0.1("2");0.1("2");0.1("3");', 4, 4, 'console|log|aaaaa|bbbb'.split('|'), 0, {}))
 ```
 
-### 2.4 Decompression Tool
+### 3.4 Decompression Tool
 
 I call this form of eval(blablabla…) eval compression and have written a simple decompression tool for it.
 
@@ -195,11 +215,11 @@ The effect is as follows:
 
 ![1](README.assets/784924-20180225023303642-218023791.gif)
 
-## 3. Reference Materials
+## 4. Reference Materials
 
 - [https://www.cnblogs.com/cc11001100/p/8468508.html](https://www.cnblogs.com/cc11001100/p/8468508.html)
 
-## 4. Reverse Engineering Technical Exchange Group
+## 5. Reverse Engineering Technical Exchange Group
 
 Scan the code to join the reverse engineering technical exchange group:
 

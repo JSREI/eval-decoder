@@ -8,11 +8,31 @@ GitHub Repository：https://github.com/JSREI/eval-decoder
 
 点击链接进入在线解密页面：
 
-[https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/eval-decoder.html)
+[https://jsrei.github.io/eval-decoder/](https://jsrei.github.io/eval-decoder/)
+
+或者通过GitHub Pages预览：
+
+[https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html)
 
 ![image-20241017220641930](./README.assets/image-20241017220641930.png)
 
-# 二、原理探究：jspacker压缩及解压缩研究(js eval)
+# 二、部署说明
+
+## 2.1 本地部署
+
+克隆仓库后，直接在浏览器中打开 `index.html` 文件即可使用。
+
+## 2.2 GitHub Pages部署
+
+1. Fork本仓库到你的GitHub账号
+2. 启用GitHub Pages：
+   - 进入仓库设置 (Settings)
+   - 找到 "Pages" 选项
+   - 在 "Source" 部分选择 "main" 分支
+   - 保存设置
+3. 几分钟后，你的工具将可以通过 `https://<你的用户名>.github.io/eval-decoder/` 访问
+
+# 三、原理探究：jspacker压缩及解压缩研究(js eval)
 
 ## 2.1 起因
 

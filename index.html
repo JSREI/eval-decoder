@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript eval解密工具 - JSREI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+
+<div class="container">
+    <h1 for="eval_code">解密eval加密的代码</h1>
+    
+    <div class="language-switch">
+        <a href="#" onclick="switchLanguage('zh')">中文</a> | 
+        <a href="#" onclick="switchLanguage('en')">English</a>
+        <span class="separator">|</span>
+        <a href="#" onclick="addToFavorites()" id="add-favorite-btn" title="收藏本页">
+            <span class="lang-zh">⭐ 收藏本页</span>
+            <span class="lang-en" style="display: none;">⭐ Bookmark</span>
+        </a>
+    </div>
+
+    <textarea id="eval_code" cols="100" rows="30" placeholder="粘贴eval代码" class="cool-textarea"></textarea>
+
+    <br>
+    <br>
+
+    <div class="button-container">
+        <button id="decrypt-btn" class="cool-button" onclick="executeEval()">eval解密</button>
+        <button id="clear-btn" class="cool-button" onclick="clearEvalCode()">清空</button>
+        <button id="example-btn" class="cool-button" onclick="loadExampleEvalCode()">加载示例加密代码</button>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="reference-section">
+        <p class="lang-zh">参考链接:</p>
+        <p class="lang-en" style="display: none;">References:</p>
+        <ul>
+            <li><a href="https://github.com/JSREI/eval-decoder" target="_blank" class="github-link">GitHub - JSREI/eval-decoder</a></li>
+            <li><a href="https://www.cnblogs.com/cc11001100/p/8468508.html" target="_blank" class="jspacker-link">JS Packer 压缩原理分析</a></li>
+            <li class="lang-zh"><a href="https://github.com/JSREI/eval-decoder/blob/main/README.md" target="_blank" class="project-doc-link">项目文档</a></li>
+            <li class="lang-en" style="display: none;"><a href="https://github.com/JSREI/eval-decoder/blob/main/README_en.md" target="_blank" class="project-doc-link">Project Documentation</a></li>
+        </ul>
+    </div>
+    
+    <!-- 逆向技术交流群信息 -->
+    <div class="group-section">
+        <h2 class="lang-zh">逆向技术交流群</h2>
+        <h2 class="lang-en" style="display: none;">Reverse Engineering Technology Group</h2>
+        
+        <div class="group-container">
+            <div class="group-item">
+                <p class="lang-zh">扫码加入逆向技术交流群：</p>
+                <p class="lang-en" style="display: none;">Scan to join the reverse engineering group:</p>
+                <img src="https://cdn.jsdelivr.net/gh/JSREI/.github/profile/README.assets/image-20241016230653669.png" style="width: 200px" alt="加入微信群">
+            </div>
+            
+            <div class="group-item">
+                <p class="lang-zh">如群二维码过期，可以加我个人微信，发送【逆向群】拉你进群：</p>
+                <p class="lang-en" style="display: none;">If the group QR code expires, add my WeChat and send [Reverse Group]:</p>
+                <img src="https://cdn.jsdelivr.net/gh/JSREI/.github/profile/README.assets/image-20231030132026541-7614065.png" style="width: 200px" alt="个人微信">
+            </div>
+            
+            <div class="group-item">
+                <p class="lang-zh"><a href="https://t.me/jsreijsrei" target="_blank">点此</a>或扫码加入TG交流群：</p>
+                <p class="lang-en" style="display: none;"><a href="https://t.me/jsreijsrei" target="_blank">Click here</a> or scan to join Telegram group:</p>
+                <img src="https://cdn.jsdelivr.net/gh/JSREI/.github/profile/README.assets/image-20241016231143315.png" style="width: 200px" alt="Telegram群">
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub Ribbon -->
+    <a class="github-fork-ribbon" href="https://github.com/JSREI/eval-decoder" target="_blank"
+       data-ribbon="Star me on GitHub" title="Star me on GitHub" id="github-ribbon">
+        Star me on GitHub
+    </a>
+</div>
+
+<!-- JavaScript 文件引用 -->
+<script src="./js/eval-decoder.js"></script>
+<script src="./js/main.js"></script>
+
+</body>
+</html>
