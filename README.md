@@ -10,10 +10,6 @@ GitHub Repository：https://github.com/JSREI/eval-decoder
 
 [https://jsrei.github.io/eval-decoder/](https://jsrei.github.io/eval-decoder/)
 
-或者通过GitHub Pages预览：
-
-[https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html)
-
 ![image-20241017220641930](./README.assets/image-20241017220641930.png)
 
 # 二、部署说明

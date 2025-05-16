@@ -10,10 +10,6 @@ Click the link to enter the online decryption page:
 
 [https://jsrei.github.io/eval-decoder/](https://jsrei.github.io/eval-decoder/)
 
-or use GitHub Pages preview:
-
-[https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html](https://htmlpreview.github.io/?https://github.com/JSREI/eval-decoder/blob/main/index.html)
-
 ![image-20241017220641930](./README.assets/image-20241017220641930.png)
 
 ## 2. Deployment Instructions
